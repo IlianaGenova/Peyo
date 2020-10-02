@@ -14,10 +14,25 @@
 	<header class="header-wrapper">
 	</header>
 	<main class="body-wrapper">
-		<h1 class="title">Пейо, пеещето радио</h1>
+		<h1 class="title">Пейо, пеещото радио</h1>
 		<img class="body-img" src="static/images/player.svg" alt="TAINA MAINA">
+		<!-- <div class="some switch"> -->
+			<label class="switch">
+				<input type="checkbox">
+				<span class="slide round"></span>
+			</label>
+		<!-- </div> -->
 		<button class="button light-up">
-			<p class="button-text">Play Veselina</p>
+			<p class="button-text">Пусни Веселина</p>
+		</button>
+		<button class="button light-up">
+			<p class="button-text">Пусни Spotify</p>
+		</button>
+		<div class="slidecontainer">
+			<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+		</div>
+		<button class="icon-button">
+			<img class="icon" src="/static/images/play.svg" alt="">
 		</button>
 	</main>
 	<footer class="footer-wrapper">
