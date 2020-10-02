@@ -1,9 +1,39 @@
 :root {
 	--black: #202022;
-	--light-green: #7fbfa6;
+	--light-green: #99ccb8;
+	--blue: #195765;
+	--yellow: #f0deb0;
+	--orange: #ed9e35;
+	--brown: #5d3c2c;
+	--carrot: #f46f1d;
+	--dark-orange: #ca672b;
+	--olive: #a3bd99;
+	--mint: #93dfdf;
+}
+body {
+	background-color: var(--blue)
 }
 .title {
 	font-size: 40px;
 	font-family: 'Comic Neue', cursive;
-	color: var(--light-green);
+	color: var(--blue);
+}
+.card {
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+	background-color: var(--light-green);
+	text-align: center;
+	vertical-align: middle;
+	height: 600px;
+	margin: 20px auto;
+	width: 75%;
+	max-width: 400px;
+	/* border-radius: 5px; */
+	/* border: 3px solid var(--blue); */
+	box-shadow: 1px 2px 10px #bfbfbf;
+}
+.card > p {
+	color: var(--blue);
+	margin: 30px 10px;
 }
