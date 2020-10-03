@@ -18,14 +18,14 @@
 		<h1 class="title">Пейо, светещото радио</h1>
 		<img class="body-img" src="static/images/player.svg" alt="TAINA MAINA">
 
-		<div class="button-wrapper horizontal center">
+		<form action="/software-mode" class="button-wrapper horizontal center">
 			<h2 class="">Хардуер</h2>
 			<label class="switch">
 				<input type="checkbox">
 				<span class="slide round"></span>
 			</label>
 			<h2 class="">Софтуер</h2>
-		</div>
+		</form>
 		<div class="button-wrapper vertical center">
 			<form action="/radio" class="form center" method="get">
 				<button type="submit" class="button light-up shadow" onclick="turnonRadio();">
@@ -41,15 +41,18 @@
 		<div class="slidecontainer">
 			<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
 		</div>
-		<button type="button" onclick="toggle();" id="tog" class="button play shadow"></button>
+		<button type="button" onclick="toggleButton();" id="tog" class="button play shadow"></button>
 	</main>
 	<footer class="footer-wrapper">
 	</footer>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		function toggle() {
+		function toggleButton() {
 			$(document.getElementById('tog')).toggleClass("pressed-button");
+		};
+		function toggleSwitch() {
+			$(document.getElementById('switch')).toggleClass("switched");
 		};
 
 		function turnonRadio() {
