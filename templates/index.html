@@ -27,10 +27,10 @@
 			<h2 class="">Софтуер</h2>
 		</div>
 
-		<button class="button light-up shadow">
+		<button class="button light-up shadow" onclick="turnonRadio();">
 			<p class="button-text">Пусни Веселина</p>
 		</button>
-		<button class="button light-up shadow">
+		<button class="button light-up shadow" onclick="turnonSpotify();">
 			<p class="button-text">Пусни Spotify</p>
 		</button>
 
@@ -49,13 +49,6 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		// $(document).ready(function() {
-		// 	var icon = $('.play');
-		// 	icon.click(function() {
-		// 		icon.toggleClass('active');
-		// 		return false;
-		// 	});
-		// });
 		function toggle() {
 			$(document.getElementById('tog')).toggleClass("pressed-button");
 		};

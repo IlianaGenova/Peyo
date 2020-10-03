@@ -40,7 +40,7 @@ h2 {
 	font-size: 40px;
 	font-family: 'Comic Neue', cursive;
 	color: var(--light-green);
-	margin: 20px auto;
+	margin: 15px auto 5px;
 	text-align: center;
 }
 
