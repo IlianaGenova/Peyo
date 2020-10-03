@@ -171,8 +171,8 @@ input:checked + .slide:before {
 .slider {
 	-webkit-appearance: none;
 	appearance: none;
-	width: 100%;
-	max-width: 350px;
+	width: 70%;
+	max-width: 380px;
 	height: 25px;
 	background: white;
 	outline: none;
@@ -236,12 +236,18 @@ input:checked + .slide:before {
 	margin: 0 auto;
 }
 
-.button.play {
+.play {
 	width: 100px;
 	height: 100px;
+	background-image: url("/static/images/play2.png");
+	background-repeat: no-repeat;
+	background-position:center;
+	background-size: 40px;
 }
 
 .pressed-button {
 	background-color: var(--orange);
 	opacity: 0.8;
+	background-image: url("/static/images/stop.png");
+	background-repeat: no-repeat;
 }
