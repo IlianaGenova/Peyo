@@ -22,6 +22,19 @@ body {
 	box-sizing: border-box;
 }
 
+.main{
+	width: 200px;
+  border: 1px dotted black;
+}
+h2 {
+  	margin: 0px;
+		padding: 0px;
+		font-size: 20px;
+		font-family: 'Comic Neue', cursive;
+		color: var(--light-green);
+		text-align: center;
+	}
+
 .title {
 	font-size: 40px;
 	font-family: 'Comic Neue', cursive;
@@ -83,8 +96,18 @@ body {
 	max-height: 350px;
 	display: block;
 	margin: 15px auto;
-
 }
+
+.button-wrapper{
+	display:flex;
+	align-items: baseline;
+	justify-content:center;
+	width: 380px;
+}
+.button-wrapper>h2{
+	margin: 0 10px;
+}
+
 .light-up {
 	background-image: -webkit-linear-gradient(210deg, #ed9e35 0%, #ed9e35 100%);
 	background-image: -o-linear-gradient(210deg, #ed9e35 0%, #f0deb0 100%);
@@ -103,6 +126,7 @@ body {
 .light-up:hover > p, .button:hover > p {
 	color: var(--light-green);
 }
+
 
 .switch {
 	position: relative;
