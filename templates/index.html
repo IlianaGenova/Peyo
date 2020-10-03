@@ -15,10 +15,10 @@
 	<header class="header-wrapper">
 	</header>
 	<main class="body-wrapper text">
-		<h1 class="title">Пейо, пеещото радио</h1>
+		<h1 class="title">Пейо, светещото радио</h1>
 		<img class="body-img" src="static/images/player.svg" alt="TAINA MAINA">
 
-		<div class="button-wrapper center">
+		<div class="button-wrapper horizontal center">
 			<h2 class="">Хардуер</h2>
 			<label class="switch">
 				<input type="checkbox">
@@ -26,15 +26,18 @@
 			</label>
 			<h2 class="">Софтуер</h2>
 		</div>
-
-		<button class="button light-up shadow" onclick="turnonRadio();">
-			<p class="button-text">Пусни Веселина</p>
-		</button>
-		<button class="button light-up shadow" onclick="turnonSpotify();">
-			<p class="button-text">Пусни Spotify</p>
-		</button>
-
-
+		<div class="button-wrapper vertical center">
+			<form action="/radio" class="form center" method="get">
+				<button type="submit" class="button light-up shadow" onclick="turnonRadio();">
+					<p class="button-text">Пусни Веселина</p>
+				</button>
+			</form>
+			<form action="/spotify" class="form center" method="get">
+				<button type="submit" class="button light-up shadow" onclick="turnonSpotify();">
+					<p class="button-text">Пусни Spotify</p>
+				</button>
+			</form>
+		</div>
 		<div class="slidecontainer">
 			<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
 		</div>
