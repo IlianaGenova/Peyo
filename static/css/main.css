@@ -9,6 +9,10 @@
 	--dark-orange: #ca672b;
 	--olive: #a3bd99;
 	--mint: #93dfdf;
+
+	--size: 50px;
+	--ratio: 1.2;
+	--transition-time:0.3s;
 }
 body {
 	background-color: var(--blue);
@@ -195,6 +199,8 @@ input:checked + .slide:before {
 	cursor: pointer;
 }
 
+
+
 .icon-button {
 	border-radius: 0px;
 	width: 110px;
@@ -204,9 +210,32 @@ input:checked + .slide:before {
 	outline: none;
 	margin: 0 auto;
 	background-color: var(--blue);
+
+	background-image: url("/static/images/play.svg");
+	background-repeat: no-repeat;
+}
+
+.icon-button:hover {
+	opacity: 0.9;
 }
 
 .icon {
 	width:52px;
 	height:52px;
+}
+
+.center {
+	margin: 0 auto;
+}
+
+.button.play {
+	width: 110px;
+	height: 100px;
+}
+
+.icon-button.pressed-button {
+	background-image: url("/static/images/player.svg");
+	background-repeat: no-repeat;
+	width: 110px;
+	height: 100px;
 }
