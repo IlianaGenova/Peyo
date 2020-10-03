@@ -1,17 +1,10 @@
-import os
-NAMES=(
-    "Radio 1 Rock",
-    "Z-Rock",
-)
-STREAMS=(
-    "http://149.13.0.81/radio1rock.ogg",
-    "http://46.10.150.243:80/z-rock.mp3",
-)
+from os import system
 
-def play_radio(STREAM):
-    os.system('omxplayer {}'.format(STREAM))
+def radio_on(STREAM):
+    system('omxplayer {}'.format(STREAM))
     
-
+def radio_off():
+    system('killall omxplayer.bin')
 
 
 if __name__ == "__main__":

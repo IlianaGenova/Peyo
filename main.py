@@ -6,7 +6,8 @@ from buttons import read_pin
 from volume_control import volume_control
 import time
 from spotify import spotify_off, spotify_on
-
+from radios import radio_on, radio_off
+import multiprocessing
 SPOTIFY=18
 RADIO=23
 CB=24
@@ -16,6 +17,16 @@ YKB=16
 serial_device='/dev/ttyACM0'
 buttons=(SPOTIFY,RADIO,CB,PLAY_PAUSE,YKB)
 GPIO.setmode(GPIO.BCM)
+
+NAMES=(
+    "Radio 1 Rock",
+    "Z-Rock",
+)
+STREAMS=(
+    "http://149.13.0.81/radio1rock.ogg",
+    "http://46.10.150.243:80/z-rock.mp3",
+)
+
 
 
 GPIO.setup(SPOTIFY, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
@@ -56,10 +67,18 @@ while(1):
         sound=1
 
     if(button==23): #radio
-        
+        p1=multiprocessing.Process(target=radio_on, args=(STREAMS[NAMES.index('Z-Rock')],))
+        p1.start()
+        #radio_on(STREAMS[NAMES.index('Z-Rock')])
+        player='omx'
+        scan=0
+        sound=1
 
     if(not(read_pin(button))):
         spotify_off()
+        radio_off()
+        p1.join()
+        radio_off()
         scan=1
         sound=0
     time.sleep(0.1)
