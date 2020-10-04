@@ -50,10 +50,10 @@ while(1):
         
         ser.reset_input_buffer()
         time.sleep(0.1)
-        volume = int(read_serial(ser))
+        volume = read_serial(ser)
         if(read_pin(MUTE)):
             volume=0
-        if(volume>=0):
+        if(volume):
             volume_control(volume, player)
     if(scan):
         button=0

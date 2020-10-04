@@ -2,7 +2,7 @@ from os import system
 
 def volume_control(volume,mode):
     step=10
-    value=float(volume/step)
+    value=float(volume)/step
     if(mode=='omx'):
         value=value*1.5
 
