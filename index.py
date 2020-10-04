@@ -45,12 +45,12 @@ def playRadio():
 				radio_i = 1 - radio_i
 				print("radio stopped")
 				radio_off()
-				# p1.kill()
+				p1.kill()
 			else:
 				radio_i = 1 - radio_i
 				print("radio is now playing")
-				# p1 = multiprocessing.Process(target=radio_on, args=(STREAMS[NAMES.index('Z-Rock')],))
-				# p1.start()
+				p1 = multiprocessing.Process(target=radio_on, args=(STREAMS[NAMES.index('Z-Rock')],))
+				p1.start()
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
 
