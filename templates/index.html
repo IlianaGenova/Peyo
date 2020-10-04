@@ -43,7 +43,7 @@
 		<form class="sliderForm slidecontainer"  method="get">
 			<input onChange="readVolume();" type="range" min="1" max="1023" value="512" class="slider" id="myRange">
 		</form>
-		<button type="button" onclick="toggleButton(); toggleLight(event);" id="tog" class="button play shadow"></button>
+		<button type="button" onclick="toggleButton(); toggleLight(event); toggleStop();" id="tog" class="button play shadow"></button>
 	</main>
 	<footer class="footer-wrapper">
 	</footer>
@@ -51,7 +51,10 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
 		function toggleLight(event) {
-			$(event.target).toggleClass("pressed-button");
+			$(event.target).toggleClass("pressed-button")
+		}
+		function toggleStop() {
+			$(event.target).toggleClass("stop")
 		}
 		function toggleButton() {
 			var result = document.getElementById('tog')
