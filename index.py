@@ -55,7 +55,7 @@ def playRadio():
 def playSpotify():
 	if request.method == 'POST':
 		spotify = request.form['spotify']
-
+		global spotify_i
 		if softwareOn:
 			if spotify_i:
 				spotify_i = 1 - spotify_i
@@ -89,7 +89,7 @@ def playUSB():
 @app.route('/mode', methods = ['POST', 'GET'])
 def controlBySoftware():
 	if request.method == 'POST':
-		global softwareOn;
+		global softwareOn
 		state = request.form['toggleBar']
 		if state == "true":
 			softwareOn = 1
