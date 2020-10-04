@@ -1,12 +1,34 @@
 from flask import Flask, request, render_template, jsonify
-from spotify import spotify_off, spotify_on
+import RPi.GPIO as GPIO
+import serial
+from os import system
+from serial1 import read_serial
+from buttons import read_pin
 from volume_control import volume_control
+import time
+from spotify import spotify_off, spotify_on
+from radios import radio_on, radio_off
 from usb import play_usb
+import multiprocessing
 
 app = Flask(__name__)
 
+NAMES=(
+    "Radio 1 Rock",
+    "Z-Rock",
+)
+STREAMS=(
+    "http://149.13.0.81/radio1rock.ogg",
+    "http://46.10.150.243:80/z-rock.mp3",
+)
+
 softwareOn = 0;
 playing = 0;
+
+radio = 0;
+spotify = 0;
+usb = 0;
+
 
 @app.route('/')
 def index():
@@ -21,12 +43,16 @@ def playRadio():
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
 
-@app.route('/spotify', methods  =['POST', 'GET'])
+@app.route('/spotify', methods = ['POST', 'GET'])
 def playSpotify():
 	if request.method == 'POST':
 		spotify = request.form['spotify']
-		if(softwareOn):
-			spotify_on()
+		if softwareOn:
+			if spotify:
+				spotify_off()
+			else:
+				spotify_on()
+			spotify = 1 - spotify
 			print("spotify is now playing")
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
@@ -35,9 +61,14 @@ def playSpotify():
 def playUSB():
 	if request.method == 'POST':
 		usb = request.form['usb']
-		if(softwareOn):
-			play_usb()
-			print("usb is now on")
+		if softwareOn:
+			if usb:
+				radio_off()
+				print("usb music is now off")
+			else:
+				play_usb()
+				print("usb music is now on")
+			usb = 1 - usb
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
 
@@ -46,10 +77,10 @@ def controlBySoftware():
 	if request.method == 'POST':
 		global softwareOn;
 		state = request.form['toggleBar']
-		if(state == "true"):
+		if state == "true":
 			softwareOn = 1
 			print("softwareOn")
-		elif(state == "false"):
+		elif state == "false":
 			softwareOn = 0
 			print("softwareOff")
 	return '', 200;
@@ -58,8 +89,12 @@ def controlBySoftware():
 def controlVolume():
 	if request.method == 'POST':
 		volume = request.form['myRange']
-		if(softwareOn):
-			radio_on(STREAM)
+		if softwareOn:
+			if radio:
+				radio_off()
+			else:
+				radio_on(STREAM)
+			radio = 1 - radio
 			print('volume changed to ' + volume)
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
@@ -68,7 +103,7 @@ def controlVolume():
 def controlStartStop():
 	if request.method == 'POST':
 		state = request.form['play']
-		if(softwareOn):
+		if softwareOn:
 			global playing;
 			playing = 1 - playing;
 			print('state changed to ' + str(playing))
