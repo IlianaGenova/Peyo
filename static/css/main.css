@@ -46,7 +46,7 @@ h2 {
 }
 
 #checkbox {
-	/* z-index: -10; */
+	/* z-index: 10; */
 	width: 40px;
 	height: 40px;
 }
@@ -119,14 +119,18 @@ h2 {
 
 .button-wrapper.vertical.center {
 	flex-direction: column;
-	margin: 0px auto;
-	padding: 0px;
+	/* margin: 0px auto; */
+	/* padding: 0px; */
+}
+
+.button-wrapper.vertical.center > button {
+	margin: 5px auto;
 }
 
 .form {
 	text-align: center;
 	width: 100%;
-	max-width: 600px;
+	max-width: 380px;
 }
 
 /* .fill {
@@ -139,7 +143,7 @@ h2 {
 	margin: 10px auto;
 }
 
-.button-wrapper > h2{
+.button-wrapper > h2 {
 	margin: 0 5px;
 }
 
@@ -234,7 +238,7 @@ input:checked + .slide:before {
 	-webkit-appearance: none;
 	appearance: none;
 	width: 70%;
-	max-width: 280px;
+	max-width: 380px;
 	height: 25px;
 	background: white;
 	outline: none;
@@ -312,4 +316,6 @@ input:checked + .slide:before {
 	opacity: 0.8;
 	background-image: url("/static/images/stop.png");
 	background-repeat: no-repeat;
+	box-shadow: 0px 0px 25px 6px rgba(90,90,90,0.7), 0px 0px 5px 4px rgba(30,30,30,0.5);
+	transition: all 0.3s cubic-bezier(#ffcc66);
 }

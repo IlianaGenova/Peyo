@@ -18,25 +18,25 @@
 		<h1 class="title">Пейо, светещото радио</h1>
 		<img class="body-img" src="static/images/player.svg" alt="TAINA MAINA">
 
-		<form id="toggle-bar" action="/software-mode" class="button-wrapper horizontal center">
+		<form id="toggleBar" class="button-wrapper horizontal center">
 			<h2 class="">Хардуер</h2>
 			<label class="switch">
-				<input id="checkbox" onChange="submitForm();" type="checkbox">
+				<input id="checkbox" onChange="toggleMode();" type="checkbox">
 				<span class="slide round"></span>
 			</label>
 			<h2 class="">Софтуер</h2>
 		</form>
 		<div class="button-wrapper vertical center">
-			<form action="/radio" class="form center" method="get">
-				<button type="submit" class="button light-up shadow" onclick="turnonRadio();">
+			<!-- <form action="/radio" class="form center" method="get"> -->
+				<button type="submit" class="form button light-up shadow center" onclick="turnonRadio();">
 					<p class="button-text">Пусни Веселина</p>
 				</button>
-			</form>
-			<form action="/spotify" class="form center" method="get">
-				<button type="submit" class="button light-up shadow" onclick="turnonSpotify();">
+			<!-- </form> -->
+			<!-- <form action="/spotify" class="" method="get"> -->
+				<button type="submit" class="form center button light-up shadow" onclick="turnonSpotify();">
 					<p class="button-text">Пусни Spotify</p>
 				</button>
-			</form>
+			<!-- </form> -->
 		</div>
 		<form class="sliderForm slidecontainer"  method="get">
 			<input onChange="readVolume();" type="range" min="1" max="1023" value="512" class="slider" id="myRange">
@@ -54,7 +54,6 @@
 		function toggleSwitch() {
 			$(document.getElementById('switch')).toggleClass("switched");
 		};
-
 		function turnonRadio() {
 
 		};
@@ -68,11 +67,10 @@
 
 		function readVolume() {
 			var slider = document.getElementById("myRange");
-			event.preventDefault();
-
-			slider.oninput = function() {
-				output = slider.value;
-			}
+			// event.preventDefault();
+			// slider.oninput = function() {
+			// 	output = slider.value;
+			// }
 
 			slider.onmouseup = function () {
 				$.ajax({
@@ -83,13 +81,40 @@
 					url: '/volume'
 				})
 				.done(function(data) {
-					window.alert('volume' + slider.value);
+					if(!data.softwareOn) {
+						window.alert('You are in hardware mode.')
+					}
+					else {
+						window.alert('volume' + slider.value);
+					}
 				});
 
 				event.preventDefault();
 				console.log(slider.value);
 				// document.getElementById("sliderForm").submit();
 			}
+		}
+
+		function toggleMode() {
+			var result = document.getElementById('checkbox').checked;
+			console.log("purvo" + result)
+			$.ajax({
+				data : {
+					toggleBar : result
+				},
+				type: 'POST',
+				url: '/mode'
+			})
+			.done(function(data) {
+				// if(!data.softwareOn) {
+				// 	window.alert('You are in hardware mode.')
+				// }
+				// else {
+				// 	// window.alert('volume' + slider.value);
+				// }
+			});
+
+			event.preventDefault();
 		}
 
 		// $(".icon-button").click(function() {
