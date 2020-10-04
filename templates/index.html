@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#195765">
 	<link rel="stylesheet" href="../static/css/main.css">
 	<title>Пейо</title>
 	<style>
@@ -27,16 +28,12 @@
 			<h2 class="">Софтуер</h2>
 		</form>
 		<div class="button-wrapper vertical center">
-			<!-- <form action="/radio" id="spotifyForm" class="form center" method="get"> -->
 				<button type="submit" id="radio" class="form button light-up shadow center" onclick="turnonRadio();">
 					<p class="button-text">Пусни Веселина</p>
 				</button>
-			<!-- </form>
-			<form action="/spotify" id="spotifyForm" class="" method="get"> -->
 				<button type="submit" id="spotify" class="form center button light-up shadow" onclick="turnonSpotify();">
 					<p class="button-text">Пусни Spotify</p>
 				</button>
-			<!-- </form> -->
 		</div>
 		<form class="sliderForm slidecontainer"  method="get">
 			<input onChange="readVolume();" type="range" min="1" max="1023" value="512" class="slider" id="myRange">
@@ -50,13 +47,29 @@
 	<script type="text/javascript">
 		function toggleButton() {
 			$(document.getElementById('tog')).toggleClass("pressed-button");
+			var result = document.getElementById('tog')
+
+			$.ajax({
+				data : {
+					play : $('#tog').val()
+				},
+				type: 'POST',
+				url: '/play'
+			})
+			.done(function(data) {
+				if(!data.softwareOn) {
+					window.alert('You are in hardware mode.')
+				}
+			});
+
+			event.preventDefault();
 		};
 		function toggleSwitch() {
 			$(document.getElementById('switch')).toggleClass("switched");
 		};
 		function turnonRadio() {
 			var result = document.getElementById('radio');
-			console.log("purvo" + result)
+			// console.log("purvo" + result)
 			$.ajax({
 				data : {
 					radio : $("#radio").val()
@@ -65,19 +78,16 @@
 				url: '/radio'
 			})
 			.done(function(data) {
-				// if(!data.softwareOn) {
-				// 	window.alert('You are in hardware mode.')
-				// }
-				// else {
-				// 	// window.alert('volume' + slider.value);
-				// }
+				if(!data.softwareOn) {
+					window.alert('You are in hardware mode.')
+				}
 			});
 
 			event.preventDefault();
 		};
 		function turnonSpotify() {
 			var result = document.getElementById('spotify');
-			console.log("purvo" + result)
+			// console.log("purvo" + result)
 			$.ajax({
 				data : {
 					spotify : $("#spotify").val()
@@ -86,12 +96,9 @@
 				url: '/spotify'
 			})
 			.done(function(data) {
-				// if(!data.softwareOn) {
-				// 	window.alert('You are in hardware mode.')
-				// }
-				// else {
-				// 	// window.alert('volume' + slider.value);
-				// }
+				if(!data.softwareOn) {
+					window.alert('You are in hardware mode.')
+				}
 			});
 
 			event.preventDefault();
@@ -103,10 +110,6 @@
 
 		function readVolume() {
 			var slider = document.getElementById("myRange");
-			// event.preventDefault();
-			// slider.oninput = function() {
-			// 	output = slider.value;
-			// }
 
 			slider.onmouseup = function () {
 				$.ajax({
@@ -121,19 +124,18 @@
 						window.alert('You are in hardware mode.')
 					}
 					else {
-						window.alert('volume' + slider.value);
+						// window.alert('volume' + slider.value);
 					}
 				});
 
 				event.preventDefault();
 				console.log(slider.value);
-				// document.getElementById("sliderForm").submit();
 			}
 		}
 
 		function toggleMode() {
 			var result = document.getElementById('checkbox').checked;
-			// console.log("purvo" + result)
+
 			$.ajax({
 				data : {
 					toggleBar : result
@@ -142,12 +144,7 @@
 				url: '/mode'
 			})
 			.done(function(data) {
-				// if(!data.softwareOn) {
-				// 	window.alert('You are in hardware mode.')
-				// }
-				// else {
-				// 	// window.alert('volume' + slider.value);
-				// }
+
 			});
 
 			event.preventDefault();
