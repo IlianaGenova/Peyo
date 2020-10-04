@@ -10,7 +10,6 @@ def index():
 
 @app.route('/radio', methods = ['POST', 'GET'])
 def playRadio():
-	print("radio is now playing");
 	if request.method == 'POST':
 		radio = request.form['radio']
 		if(softwareOn):
