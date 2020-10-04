@@ -7,6 +7,7 @@ from volume_control import volume_control
 import time
 from spotify import spotify_off, spotify_on
 from radios import radio_on, radio_off
+from usb import play_usb
 import multiprocessing
 spotify_off()
 SPOTIFY=18
@@ -51,8 +52,7 @@ while(1):
         ser.reset_input_buffer()
         time.sleep(0.1)
         volume = read_serial(ser)
-        if(read_pin(MUTE)):
-            volume=0
+        
         if(volume):
             volume_control(volume, player)
     if(scan):
@@ -74,17 +74,35 @@ while(1):
     if(button==23 and sound==0): #radio
         p1=multiprocessing.Process(target=radio_on, args=(STREAMS[NAMES.index('Z-Rock')],))
         p1.start()
+        print('radio started')
         #radio_on(STREAMS[NAMES.index('Z-Rock')])
         player='omx'
         scan=0
         sound=1
+    if(button==24 and sound==0):
+        p2=multiprocessing.Process(target=play_usb)
+        p2.start()
+        print('USB started')
+        
+        player='omx'
+        scan=0
+        sound=1
+
     butt_prev=button
     if(not(read_pin(button))):
         if(butt_prev==SPOTIFY):
             spotify_off()
+
         if(butt_prev==RADIO):
             radio_off()
             p1.join()
+            print('Radio Stopped')
+        if(butt_prev==CB):
+            radio_off()
+            p2.terminate()
+            
+            
+            print('usb stopped')
         
         scan=1
         sound=0

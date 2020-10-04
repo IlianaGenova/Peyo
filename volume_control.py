@@ -1,5 +1,5 @@
 from os import system
-
+from buttons import read_pin
 def volume_control(volume,mode):
     step=10
     value=float(volume)/step
@@ -14,9 +14,12 @@ def volume_control(volume,mode):
     if(mode=='omx'):
         value=float(value/100)
         system('''export DBUS_SESSION_BUS_ADDRESS=$(cat /tmp/omxplayerdbus.${USER:-root})
-                dbus-send --print-reply --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Set string:"org.mpris.MediaPlayer2.Player" string:"Volume" double:''' + str(float(value)))
+                dbus-send --print-reply --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Set string:"org.mpris.MediaPlayer2.Player" string:"Volume" double:''' + str(value))
                                                       #works as a black box, pls don't ask
     if(mode=='alsa'):
+        
+        if(read_pin(25)):
+            value=0
         system("amixer sset 'Headphone' " + str(value) + '%')
     return value
     
