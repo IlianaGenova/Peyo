@@ -57,12 +57,12 @@ def playSpotify():
 		spotify = request.form['spotify']
 
 		if softwareOn:
-			if spotify:
-				spotify = 1 - spotify
+			if spotify_i:
+				spotify_i = 1 - spotify_i
 				print("spotify stopped")
 				spotify_off()
 			else:
-				spotify = 1 - spotify
+				spotify_i = 1 - spotify_i
 				print("spotify is now playing")
 				spotify_on()
 		return jsonify({'softwareOn' : softwareOn})
@@ -103,11 +103,21 @@ def controlBySoftware():
 def controlVolume():
 	if request.method == 'POST':
 		volume = request.form['myRange']
+		value = float(volume)/step
+		step=10
+
 		if softwareOn:
-			if radio:
-				volume_control(volume, 'omx')
-			elif spotify:
-				volume_control(volume, 'alsa')
+			if radio_i:
+				value=value*1.5
+			if value<=55 and spotify_i:
+				value=0
+			if radio_i:
+				value = float(value/100)
+				system('''export DBUS_SESSION_BUS_ADDRESS=$(cat /tmp/omxplayerdbus.${USER:-root})
+					dbus-send --print-reply --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Set string:"org.mpris.MediaPlayer2.Player" string:"Volume" double:''' + str(value))
+				# volume_control(volume, 'omx')
+			if spotify_i:
+				system("amixer sset 'Headphone' " + str(volume) + '%')
 			print('volume changed to ' + volume)
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
