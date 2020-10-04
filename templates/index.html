@@ -29,13 +29,13 @@
 		</form>
 
 		<div class="button-wrapper vertical center">
-				<button type="submit" id="radio" class="form button light-up shadow center" onclick="turnonRadio(); toggleLight();">
+				<button type="submit" id="radio" class="form button light-up shadow center" onclick="turnonRadio(); toggleLight(event);">
 					<p class="button-text">Пусни Радио</p>
 				</button>
-				<button type="submit" id="spotify" class="form center button light-up shadow" onclick="turnonSpotify(); toggleLight();">
+				<button type="submit" id="spotify" class="form center button light-up shadow" onclick="turnonSpotify(); toggleLight(event);">
 					<p class="button-text">Пусни Spotify</p>
 				</button>
-				<button type="submit" id="usb" class="form center button light-up shadow" onclick="turnonUSB(); toggleLight();">
+				<button type="submit" id="usb" class="form center button light-up shadow" onclick="turnonUSB(); toggleLight(event);">
 					<p class="button-text">Пусни USB</p>
 				</button>
 		</div>
@@ -43,7 +43,7 @@
 		<form class="sliderForm slidecontainer"  method="get">
 			<input onChange="readVolume();" type="range" min="1" max="1023" value="512" class="slider" id="myRange">
 		</form>
-		<button type="button" onclick="toggleButton(); toggleLight();" id="tog" class="button play shadow"></button>
+		<button type="button" onclick="toggleButton(); toggleLight(event);" id="tog" class="button play shadow"></button>
 	</main>
 	<footer class="footer-wrapper">
 	</footer>
