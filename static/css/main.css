@@ -45,6 +45,12 @@ h2 {
 	line-height: 40px;
 }
 
+#checkbox {
+	/* z-index: -10; */
+	width: 40px;
+	height: 40px;
+}
+
 .body-wrapper {
 	display: flex;
 	flex-wrap: wrap;
@@ -168,8 +174,11 @@ h2 {
 
 .switch input {
 	opacity: 0;
-	width: 0;
-	height: 0;
+	width: 80px;
+	height: 40px;
+	outline: none;
+	border: none;
+	background-color: var(--blue);
 }
 
 .slide {

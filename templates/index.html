@@ -18,10 +18,10 @@
 		<h1 class="title">Пейо, светещото радио</h1>
 		<img class="body-img" src="static/images/player.svg" alt="TAINA MAINA">
 
-		<form action="/software-mode" class="button-wrapper horizontal center">
+		<form id="toggle-bar" action="/software-mode" class="button-wrapper horizontal center">
 			<h2 class="">Хардуер</h2>
 			<label class="switch">
-				<input type="checkbox">
+				<input id="checkbox" onChange="submitForm();" type="checkbox">
 				<span class="slide round"></span>
 			</label>
 			<h2 class="">Софтуер</h2>
@@ -38,9 +38,9 @@
 				</button>
 			</form>
 		</div>
-		<div class="slidecontainer">
-			<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-		</div>
+		<form class="sliderForm slidecontainer"  method="get">
+			<input onChange="readVolume();" type="range" min="1" max="1023" value="512" class="slider" id="myRange">
+		</form>
 		<button type="button" onclick="toggleButton();" id="tog" class="button play shadow"></button>
 	</main>
 	<footer class="footer-wrapper">
@@ -61,6 +61,36 @@
 		function turnonSpotify() {
 
 		};
+
+		function submitForm() {
+			$(document.getElementById('toggle-bar')).submit();
+		};
+
+		function readVolume() {
+			var slider = document.getElementById("myRange");
+			event.preventDefault();
+
+			slider.oninput = function() {
+				output = slider.value;
+			}
+
+			slider.onmouseup = function () {
+				$.ajax({
+					data : {
+						myRange : $('#myRange').val()
+					},
+					type: 'POST',
+					url: '/volume'
+				})
+				.done(function(data) {
+					window.alert('volume' + slider.value);
+				});
+
+				event.preventDefault();
+				console.log(slider.value);
+				// document.getElementById("sliderForm").submit();
+			}
+		}
 
 		// $(".icon-button").click(function() {
 		// 	$(this).toggleClass("pressed-button");
