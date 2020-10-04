@@ -121,7 +121,7 @@ def controlVolume():
 			if value<=55 and spotify_i:
 				value=0
 			if radio_i:
-				value = float(value/100)
+				value = float(value/70)
 				system('''export DBUS_SESSION_BUS_ADDRESS=$(cat /tmp/omxplayerdbus.${USER:-root})
 					dbus-send --print-reply --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Set string:"org.mpris.MediaPlayer2.Player" string:"Volume" double:''' + str(value))
 				# volume_control(volume, 'omx')
@@ -135,24 +135,26 @@ def controlVolume():
 def controlStartStop():
 	if request.method == 'POST':
 		state = request.form['play']
-		global playing;
+		global playing
 		if softwareOn:
 			if playing:
+				print("if" + current_volume)
 				if radio_i:
 					value = 0
 					system('''export DBUS_SESSION_BUS_ADDRESS=$(cat /tmp/omxplayerdbus.${USER:-root})
 						dbus-send --print-reply --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Set string:"org.mpris.MediaPlayer2.Player" string:"Volume" double:''' + str(value))
 				if spotify_i:
 					system("amixer sset 'Headphone' " + str(0) + '%')
+				playing = 1 - playing;
 			else:
+				print("else" + current_volume)
 				if radio_i:
 					value = current_volume
 					system('''export DBUS_SESSION_BUS_ADDRESS=$(cat /tmp/omxplayerdbus.${USER:-root})
 						dbus-send --print-reply --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Set string:"org.mpris.MediaPlayer2.Player" string:"Volume" double:''' + str(value))
 				if spotify_i:
-					system("amixer sset 'Headphone' " + str(0) + '%')
-
-			playing = 1 - playing;
+					system("amixer sset 'Headphone' " + str(current_volume) + '%')
+				playing = 1 - playing;
 			print('state changed to ' + str(playing))
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
