@@ -49,10 +49,12 @@ def playSpotify():
 		spotify = request.form['spotify']
 		if softwareOn:
 			if spotify:
+				spotify = 1 - spotify
 				spotify_off()
 			else:
+				spotify = 1 - spotify
 				spotify_on()
-			spotify = 1 - spotify
+
 			print("spotify is now playing")
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
@@ -63,12 +65,14 @@ def playUSB():
 		usb = request.form['usb']
 		if softwareOn:
 			if usb:
+				usb = 1 - usb
 				radio_off()
 				print("usb music is now off")
 			else:
+				usb = 1 - usb
 				play_usb()
 				print("usb music is now on")
-			usb = 1 - usb
+
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
 
@@ -91,10 +95,11 @@ def controlVolume():
 		volume = request.form['myRange']
 		if softwareOn:
 			if radio:
+				radio = 1 - radio
 				radio_off()
 			else:
+				radio = 1 - radio
 				radio_on(STREAM)
-			radio = 1 - radio
 			print('volume changed to ' + volume)
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
