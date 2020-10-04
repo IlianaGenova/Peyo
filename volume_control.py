@@ -3,8 +3,8 @@ from os import system
 def volume_control(volume,mode):
     step=10
     value=float(volume)/step
-    
-    value=value*1.5
+    if(mode=='omx'):
+        value=value*1.5
 
     
     if(value<=55 and mode=='alsa'):

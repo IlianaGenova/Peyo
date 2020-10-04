@@ -8,6 +8,7 @@ import time
 from spotify import spotify_off, spotify_on
 from radios import radio_on, radio_off
 import multiprocessing
+spotify_off()
 SPOTIFY=18
 RADIO=23
 CB=24
@@ -42,7 +43,7 @@ ser.flush()
 sound=0 # flag for playback
 player=' ' # flag for omx/alsa
 scan = 1 #if a button is pressed, 0
-
+butt_prev=0 #previously pressed button
 while(1):
     if(sound):
         ser.reset_input_buffer()
@@ -60,25 +61,27 @@ while(1):
         time.sleep(0.1)
         continue
     print(button)
-    if(button==18):#Spotify
+    if(button==18 and sound==0):#Spotify
         spotify_on()
         player='alsa'
         scan=0
         sound=1
 
-    if(button==23): #radio
+    if(button==23 and sound==0): #radio
         p1=multiprocessing.Process(target=radio_on, args=(STREAMS[NAMES.index('Z-Rock')],))
         p1.start()
         #radio_on(STREAMS[NAMES.index('Z-Rock')])
         player='omx'
         scan=0
         sound=1
-
+    butt_prev=button
     if(not(read_pin(button))):
-        spotify_off()
-        radio_off()
-        p1.join()
-        radio_off()
+        if(butt_prev==SPOTIFY):
+            spotify_off()
+        if(butt_prev==RADIO):
+            radio_off()
+            p1.join()
+        
         scan=1
         sound=0
     time.sleep(0.1)
