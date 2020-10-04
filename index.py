@@ -138,7 +138,7 @@ def controlStartStop():
 		global playing
 		if softwareOn:
 			if playing:
-				print("if" + current_volume)
+				print("if" + str(current_volume))
 				if radio_i:
 					value = 0
 					system('''export DBUS_SESSION_BUS_ADDRESS=$(cat /tmp/omxplayerdbus.${USER:-root})
@@ -147,7 +147,7 @@ def controlStartStop():
 					system("amixer sset 'Headphone' " + str(0) + '%')
 				playing = 1 - playing;
 			else:
-				print("else" + current_volume)
+				print("else" + str(current_volume))
 				if radio_i:
 					value = float(current_volume/100)
 					system('''export DBUS_SESSION_BUS_ADDRESS=$(cat /tmp/omxplayerdbus.${USER:-root})
