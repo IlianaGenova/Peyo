@@ -32,10 +32,10 @@
 				<button type="submit" id="radio" class="form button light-up shadow center" onclick="turnonRadio();">
 					<p class="button-text">Пусни Радио</p>
 				</button>
-				<button type="submit" id="spotify" class="form center button light-up shadow" onclick="turnonSpotify();toggleLight();">
+				<button type="submit" id="spotify" class="form center button light-up shadow" onclick="turnonSpotify();">
 					<p class="button-text">Пусни Spotify</p>
 				</button>
-				<button type="submit" id="usb" class="form center button light-up shadow" onclick="turnonUSB();toggleLight();">
+				<button type="submit" id="usb" class="form center button light-up shadow" onclick="turnonUSB();">
 					<p class="button-text">Пусни USB</p>
 				</button>
 		</div>
@@ -43,18 +43,22 @@
 		<form class="sliderForm slidecontainer"  method="get">
 			<input onChange="readVolume();" type="range" min="1" max="1023" value="512" class="slider" id="myRange">
 		</form>
-		<button type="button" onclick="toggleButton(); toggleLight();" id="tog" class="button play shadow"></button>
+		<button type="button" onclick="toggleButton(); toggleLight(event); toggleStop();" id="tog" class="button play shadow"></button>
 	</main>
 	<footer class="footer-wrapper">
 	</footer>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript">
-		function toggleLight() {
-			$(document.getElementById('tog')).toggleClass("pressed-button");
-			var result = document.getElementById('tog')
+		function toggleLight(event) {
+			$(event.target).toggleClass("pressed-button")
+		}
+		function toggleStop() {
+			$(document.getElementById('tog')).toggleClass("stop")
 		}
 		function toggleButton() {
+			var result = document.getElementById('tog')
+
 			$.ajax({
 				data : {
 					play : $('#tog').val()
