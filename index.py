@@ -1,4 +1,6 @@
 from flask import Flask, request, render_template, jsonify
+from spotify import spotify_off, spotify_on
+
 app = Flask(__name__)
 
 softwareOn = 0;
@@ -22,6 +24,7 @@ def playSpotify():
 	if request.method == 'POST':
 		spotify = request.form['spotify']
 		if(softwareOn):
+			spotify_on()
 			print("spotify is now playing")
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
