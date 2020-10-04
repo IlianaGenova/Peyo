@@ -38,7 +38,7 @@ GPIO.setup(MUTE, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down
 #GPIO.setup(KB, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
 GPIO.setup(YKB, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
 
-ser=serial.Serial('/dev/ttyAMA0',57600,timeout=1)
+ser=serial.Serial('/dev/ttyACM0',57600,timeout=1)
 ser.flush()
 
 sound=0 # flag for playback
