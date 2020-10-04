@@ -49,7 +49,7 @@ def playRadio():
 				radio_i = 1 - radio_i
 				print("radio is now playing")
 				p1 = multiprocessing.Process(target=radio_on, args=(STREAMS[NAMES.index('Z-Rock')],))
-		        p1.start()
+				p1.start()
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
 
@@ -81,12 +81,13 @@ def playUSB():
 				usb_i = 1 - usb_i
 				radio_off()
 				system('killall omxplayer.bin')
+				nonlocal p2
 				p2.kill()
 				print("usb music is now off")
 			else:
 				usb_i = 1 - usb_i
 				p2 = multiprocessing.Process(target=play_usb, args=())
-		        p2.start()
+				p2.start()
 				print("usb music is now on")
 
 		return jsonify({'softwareOn' : softwareOn})
