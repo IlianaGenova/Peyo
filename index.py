@@ -1,5 +1,7 @@
 from flask import Flask, request, render_template, jsonify
 from spotify import spotify_off, spotify_on
+from volume_control import volume_control
+from usb import play_usb
 
 app = Flask(__name__)
 
@@ -29,6 +31,16 @@ def playSpotify():
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
 
+@app.route('/usb', methods  =['POST', 'GET'])
+def playUSB():
+	if request.method == 'POST':
+		usb = request.form['usb']
+		if(softwareOn):
+			play_usb()
+			print("usb is now on")
+		return jsonify({'softwareOn' : softwareOn})
+	return '', 200;
+
 @app.route('/mode', methods = ['POST', 'GET'])
 def controlBySoftware():
 	if request.method == 'POST':
@@ -47,6 +59,7 @@ def controlVolume():
 	if request.method == 'POST':
 		volume = request.form['myRange']
 		if(softwareOn):
+			radio_on(STREAM)
 			print('volume changed to ' + volume)
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;

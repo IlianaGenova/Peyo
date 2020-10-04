@@ -27,6 +27,7 @@
 			</label>
 			<h2 class="">Софтуер</h2>
 		</form>
+
 		<div class="button-wrapper vertical center">
 				<button type="submit" id="radio" class="form button light-up shadow center" onclick="turnonRadio();">
 					<p class="button-text">Пусни Веселина</p>
@@ -34,7 +35,11 @@
 				<button type="submit" id="spotify" class="form center button light-up shadow" onclick="turnonSpotify();">
 					<p class="button-text">Пусни Spotify</p>
 				</button>
+				<button type="submit" id="usb" class="form center button light-up shadow" onclick="turnonUSB();">
+					<p class="button-text">Пусни USB</p>
+				</button>
 		</div>
+
 		<form class="sliderForm slidecontainer"  method="get">
 			<input onChange="readVolume();" type="range" min="1" max="1023" value="512" class="slider" id="myRange">
 		</form>
@@ -94,6 +99,25 @@
 				},
 				type: 'POST',
 				url: '/spotify'
+			})
+			.done(function(data) {
+				if(!data.softwareOn) {
+					window.alert('You are in hardware mode.')
+				}
+			});
+
+			event.preventDefault();
+		};
+
+		function turnonUSB() {
+			var result = document.getElementById('usb');
+			// console.log("purvo" + result)
+			$.ajax({
+				data : {
+					usb : $("#usb").val()
+				},
+				type: 'POST',
+				url: '/usb'
 			})
 			.done(function(data) {
 				if(!data.softwareOn) {
