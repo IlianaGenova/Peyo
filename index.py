@@ -25,9 +25,9 @@ STREAMS=(
 softwareOn = 0;
 playing = 0;
 
-radio = 0;
-spotify = 0;
-usb = 0;
+radio_i = 0;
+spotify_i = 0;
+usb_i = 0;
 
 
 @app.route('/')
@@ -38,8 +38,16 @@ def index():
 def playRadio():
 	if request.method == 'POST':
 		radio = request.form['radio']
-		if(softwareOn):
-			print("radio is now playing")
+		global radio_i
+		if softwareOn:
+			if radio_i:
+				radio_i = 1 - radio_i
+				print("radio stopped")
+				radio_off()
+			else:
+				radio_i = 1 - radio_i
+				print("radio is now playing")
+				radio_on(STREAM)
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
 
@@ -47,13 +55,16 @@ def playRadio():
 def playSpotify():
 	if request.method == 'POST':
 		spotify = request.form['spotify']
+
 		if softwareOn:
 			if spotify:
+				spotify = 1 - spotify
+				print("spotify stopped")
 				spotify_off()
 			else:
+				spotify = 1 - spotify
+				print("spotify is now playing")
 				spotify_on()
-			spotify = 1 - spotify
-			print("spotify is now playing")
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
 
@@ -61,14 +72,17 @@ def playSpotify():
 def playUSB():
 	if request.method == 'POST':
 		usb = request.form['usb']
+		global usb_i
 		if softwareOn:
-			if usb:
+			if usb_i:
+				usb_i = 1 - usb_i
 				radio_off()
 				print("usb music is now off")
 			else:
+				usb_i = 1 - usb_i
 				play_usb()
 				print("usb music is now on")
-			usb = 1 - usb
+
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
 
@@ -91,10 +105,9 @@ def controlVolume():
 		volume = request.form['myRange']
 		if softwareOn:
 			if radio:
-				radio_off()
-			else:
-				radio_on(STREAM)
-			radio = 1 - radio
+				volume_control(volume, 'omx')
+			elif spotify:
+				volume_control(volume, 'alsa')
 			print('volume changed to ' + volume)
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
