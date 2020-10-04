@@ -319,7 +319,7 @@ input:checked + .slide:before {
 	transition: all 0.3s cubic-bezier(#ffcc66);
 }
 
-.stop {
+/* .stop {
 	background-image: url("/static/images/stop.png");
 	background-repeat: no-repeat;
-}
+} */
