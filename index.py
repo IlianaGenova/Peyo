@@ -22,12 +22,13 @@ STREAMS = (
     "http://46.10.150.243:80/z-rock.mp3",
 )
 
-softwareOn = 0;
-playing = 0;
+softwareOn = 0
+playing = 0
+current_volume = 0
 
-radio_i = 0;
-spotify_i = 0;
-usb_i = 0;
+radio_i = 0
+spotify_i = 0
+usb_i = 0
 
 
 @app.route('/')
@@ -81,7 +82,6 @@ def playUSB():
 				usb_i = 1 - usb_i
 				radio_off()
 				system('killall omxplayer.bin')
-				nonlocal p2
 				p2.kill()
 				print("usb music is now off")
 			else:
@@ -110,12 +110,14 @@ def controlBySoftware():
 def controlVolume():
 	if request.method == 'POST':
 		volume = request.form['myRange']
+		global current_volume
+		current_volume= volume
 		step=10
 		value = float(volume)/step
 
 		if softwareOn:
 			if radio_i:
-				value=value*1.5
+				value = value * 2
 			if value<=55 and spotify_i:
 				value=0
 			if radio_i:
@@ -133,8 +135,23 @@ def controlVolume():
 def controlStartStop():
 	if request.method == 'POST':
 		state = request.form['play']
+		global playing;
 		if softwareOn:
-			global playing;
+			if playing:
+				if radio_i:
+					value = 0
+					system('''export DBUS_SESSION_BUS_ADDRESS=$(cat /tmp/omxplayerdbus.${USER:-root})
+						dbus-send --print-reply --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Set string:"org.mpris.MediaPlayer2.Player" string:"Volume" double:''' + str(value))
+				if spotify_i:
+					system("amixer sset 'Headphone' " + str(0) + '%')
+			else:
+				if radio_i:
+					value = current_volume
+					system('''export DBUS_SESSION_BUS_ADDRESS=$(cat /tmp/omxplayerdbus.${USER:-root})
+						dbus-send --print-reply --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Set string:"org.mpris.MediaPlayer2.Player" string:"Volume" double:''' + str(value))
+				if spotify_i:
+					system("amixer sset 'Headphone' " + str(0) + '%')
+
 			playing = 1 - playing;
 			print('state changed to ' + str(playing))
 		return jsonify({'softwareOn' : softwareOn})
