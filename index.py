@@ -47,7 +47,7 @@ def playRadio():
 			else:
 				radio_i = 1 - radio_i
 				print("radio is now playing")
-				radio_on(STREAM)
+				radio_on(STREAMS)
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
 
@@ -73,10 +73,12 @@ def playUSB():
 	if request.method == 'POST':
 		usb = request.form['usb']
 		global usb_i
+		print(usb_i)
 		if softwareOn:
 			if usb_i:
 				usb_i = 1 - usb_i
 				radio_off()
+				system('killall omxplayer.bin')
 				print("usb music is now off")
 			else:
 				usb_i = 1 - usb_i
@@ -103,8 +105,8 @@ def controlBySoftware():
 def controlVolume():
 	if request.method == 'POST':
 		volume = request.form['myRange']
-		value = float(volume)/step
 		step=10
+		value = float(volume)/step
 
 		if softwareOn:
 			if radio_i:
