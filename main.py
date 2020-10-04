@@ -80,7 +80,7 @@ while(1):
         scan=0
         sound=1
     if(button==24 and sound==0):
-        p2=multiprocessing.Process(target=play_usb)
+        p2=multiprocessing.Process(target=play_usb, args=())
         p2.start()
         print('USB started')
         
@@ -99,7 +99,7 @@ while(1):
             print('Radio Stopped')
         if(butt_prev==CB):
             radio_off()
-            p2.terminate()
+            p2.kill()
             
             
             print('usb stopped')
