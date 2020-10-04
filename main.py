@@ -12,11 +12,11 @@ spotify_off()
 SPOTIFY=18
 RADIO=23
 CB=24
-PLAY_PAUSE=25
+MUTE=25
 #KB=12 Hardware Problem
 YKB=16
 serial_device='/dev/ttyACM0'
-buttons=(SPOTIFY,RADIO,CB,PLAY_PAUSE,YKB)
+buttons=(SPOTIFY,RADIO,CB,YKB)
 GPIO.setmode(GPIO.BCM)
 
 NAMES=(
@@ -33,7 +33,7 @@ STREAMS=(
 GPIO.setup(SPOTIFY, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
 GPIO.setup(RADIO, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
 GPIO.setup(CB, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
-GPIO.setup(PLAY_PAUSE, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
+GPIO.setup(MUTE, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
 #GPIO.setup(KB, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
 GPIO.setup(YKB, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
 
@@ -45,11 +45,15 @@ player=' ' # flag for omx/alsa
 scan = 1 #if a button is pressed, 0
 butt_prev=0 #previously pressed button
 while(1):
+
     if(sound):
+        
         ser.reset_input_buffer()
         time.sleep(0.1)
-        volume = read_serial(ser)
-        if(volume):
+        volume = int(read_serial(ser))
+        if(read_pin(MUTE)):
+            volume=0
+        if(volume>=0):
             volume_control(volume, player)
     if(scan):
         button=0
@@ -84,7 +88,7 @@ while(1):
         
         scan=1
         sound=0
-    time.sleep(0.1)
+   
     
 
 
