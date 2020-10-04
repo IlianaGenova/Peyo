@@ -45,12 +45,12 @@ def playRadio():
 				radio_i = 1 - radio_i
 				print("radio stopped")
 				radio_off()
-				p1.kill()
+				# p1.kill()
 			else:
 				radio_i = 1 - radio_i
 				print("radio is now playing")
-				p1 = multiprocessing.Process(target=radio_on, args=(STREAMS[NAMES.index('Z-Rock')],))
-				p1.start()
+				# p1 = multiprocessing.Process(target=radio_on, args=(STREAMS[NAMES.index('Z-Rock')],))
+				# p1.start()
 		return jsonify({'softwareOn' : softwareOn})
 	return '', 200;
 
@@ -111,17 +111,17 @@ def controlVolume():
 	if request.method == 'POST':
 		volume = request.form['myRange']
 		global current_volume
-		current_volume= volume
-		step=10
+		current_volume = volume
+		step = 10
 		value = float(volume)/step
 
 		if softwareOn:
 			if radio_i:
-				value = value * 2
+				value = value * 1.5
 			if value<=55 and spotify_i:
 				value=0
 			if radio_i:
-				value = float(value/70)
+				value = float(value/100)
 				system('''export DBUS_SESSION_BUS_ADDRESS=$(cat /tmp/omxplayerdbus.${USER:-root})
 					dbus-send --print-reply --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Set string:"org.mpris.MediaPlayer2.Player" string:"Volume" double:''' + str(value))
 				# volume_control(volume, 'omx')
@@ -149,7 +149,7 @@ def controlStartStop():
 			else:
 				print("else" + current_volume)
 				if radio_i:
-					value = current_volume
+					value = float(current_volume/100)
 					system('''export DBUS_SESSION_BUS_ADDRESS=$(cat /tmp/omxplayerdbus.${USER:-root})
 						dbus-send --print-reply --session --reply-timeout=500 --dest=org.mpris.MediaPlayer2.omxplayer /org/mpris/MediaPlayer2 org.freedesktop.DBus.Properties.Set string:"org.mpris.MediaPlayer2.Player" string:"Volume" double:''' + str(value))
 				if spotify_i:
