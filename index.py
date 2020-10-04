@@ -10,12 +10,25 @@ def index():
 @app.route('/radio', methods = ['POST', 'GET'])
 def playRadio():
 	print("radio is now playing");
+	if request.method == 'POST':
+		radio = request.form['radio']
+		# print("ti i si ma " + str(softwareOn))
+		if(softwareOn):
+			#logic
+			print("yay")
+
 	return '', 200;
 
 @app.route('/spotify', methods  =['POST', 'GET'])
 def playSpotify():
+	if request.method == 'POST':
+		spotify = request.form['spotify']
+		# print("ti i si ma " + str(softwareOn))
+		if(softwareOn):
+			#logic
+			print("yay")
 
-	return render_template('index.html')
+	return '', 200;
 
 @app.route('/mode', methods = ['POST', 'GET'])
 def controlBySoftware():
@@ -34,15 +47,12 @@ def controlBySoftware():
 def controlVolume():
 	if request.method == 'POST':
 		volume = request.form['myRange']
-		# print("ti i si ma " + str(softwareOn))
 		if(softwareOn):
 			#logic
 			print('yay')
 		else:
 			return jsonify({'softwareOn' : softwareOn})
 		return jsonify({'softwareOn' : softwareOn})
-	# elif request.method == 'GET':
-	# 	print('get')
 	return '', 200;
 
 if __name__ == '__main__':

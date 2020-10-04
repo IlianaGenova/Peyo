@@ -27,13 +27,13 @@
 			<h2 class="">Софтуер</h2>
 		</form>
 		<div class="button-wrapper vertical center">
-			<!-- <form action="/radio" class="form center" method="get"> -->
-				<button type="submit" class="form button light-up shadow center" onclick="turnonRadio();">
+			<!-- <form action="/radio" id="spotifyForm" class="form center" method="get"> -->
+				<button type="submit" id="radio" class="form button light-up shadow center" onclick="turnonRadio();">
 					<p class="button-text">Пусни Веселина</p>
 				</button>
-			<!-- </form> -->
-			<!-- <form action="/spotify" class="" method="get"> -->
-				<button type="submit" class="form center button light-up shadow" onclick="turnonSpotify();">
+			<!-- </form>
+			<form action="/spotify" id="spotifyForm" class="" method="get"> -->
+				<button type="submit" id="spotify" class="form center button light-up shadow" onclick="turnonSpotify();">
 					<p class="button-text">Пусни Spotify</p>
 				</button>
 			<!-- </form> -->
@@ -55,10 +55,46 @@
 			$(document.getElementById('switch')).toggleClass("switched");
 		};
 		function turnonRadio() {
+			var result = document.getElementById('radio');
+			console.log("purvo" + result)
+			$.ajax({
+				data : {
+					radio : $("#radio").val()
+				},
+				type: 'POST',
+				url: '/radio'
+			})
+			.done(function(data) {
+				// if(!data.softwareOn) {
+				// 	window.alert('You are in hardware mode.')
+				// }
+				// else {
+				// 	// window.alert('volume' + slider.value);
+				// }
+			});
 
+			event.preventDefault();
 		};
 		function turnonSpotify() {
+			var result = document.getElementById('spotify');
+			console.log("purvo" + result)
+			$.ajax({
+				data : {
+					spotify : $("#spotify").val()
+				},
+				type: 'POST',
+				url: '/spotify'
+			})
+			.done(function(data) {
+				// if(!data.softwareOn) {
+				// 	window.alert('You are in hardware mode.')
+				// }
+				// else {
+				// 	// window.alert('volume' + slider.value);
+				// }
+			});
 
+			event.preventDefault();
 		};
 
 		function submitForm() {
@@ -97,7 +133,7 @@
 
 		function toggleMode() {
 			var result = document.getElementById('checkbox').checked;
-			console.log("purvo" + result)
+			// console.log("purvo" + result)
 			$.ajax({
 				data : {
 					toggleBar : result
