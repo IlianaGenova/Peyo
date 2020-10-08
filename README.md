@@ -25,3 +25,4 @@ We also added distant-control ability for people on the same network as the new 
 - Control Volume
 
 ![Web](web.png)
+![Peyo](PeyoCollage.jpg)
