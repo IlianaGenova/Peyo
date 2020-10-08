@@ -3,13 +3,14 @@ A student project for HackTUES 6
 We renovated an old radio so that it can play music again!
 We also added distant-control ability for people on the same network as the new heart of the radio - the Raspberry Pi.
 
+### You can watch a demo of the project [here.](https://youtu.be/siEtyv2V2Zg)
+
 ## Used hardware:
-- Radio "Accord 104"
+- Radio "Akord 104"
 - Arduino Uno
 - Raspberry Pi
 - RGB led strip
 - Amplifier
-- Potentiometer
 
 ## Used software:
 - Python flask
