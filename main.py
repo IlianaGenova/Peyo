@@ -9,6 +9,7 @@ from spotify import spotify_off, spotify_on
 from radios import radio_on, radio_off
 from usb import play_usb
 import multiprocessing
+from omxplayer.player import OMXPlayer
 spotify_off()
 SPOTIFY=18
 RADIO=23
@@ -71,15 +72,29 @@ while(1):
         scan=0
         sound=1
 
+
+
+
+
+
     if(button==23 and sound==0): #radio
-        p1=multiprocessing.Process(target=radio_on, args=(STREAMS[NAMES.index('Z-Rock')],))
-        p1.start()
+        #p1=multiprocessing.Process(target=radio_on, args=(STREAMS[NAMES.index('Z-Rock')],))
+        #p1.start()
+        omx_player=radio_on(STREAMS[NAMES.index('Z-Rock')])#player object, returned from the function
         print('radio started')
         #radio_on(STREAMS[NAMES.index('Z-Rock')])
-        player='omx'
+        player='alsa'
         scan=0
         sound=1
-    if(button==24 and sound==0):
+
+
+
+
+
+
+
+
+    if(button==24 and sound==0):#USB
         p2=multiprocessing.Process(target=play_usb, args=())
         p2.start()
         print('USB started')
@@ -94,12 +109,15 @@ while(1):
             spotify_off()
 
         if(butt_prev==RADIO):
-            radio_off()
-            p1.join()
+            radio_off(omx_player)
+            #p1.join() # old implementation
             print('Radio Stopped')
+
+
+
         if(butt_prev==CB):
-            radio_off()
-            p2.kill()
+            #radio_off()
+            #p2.kill()
             
             
             print('usb stopped')

@@ -1,6 +1,9 @@
 import os
+from omxplayer.player import OMXPlayer
+from omxplayer.keys import PREVIOUS_AUDIO
+from time import sleep
 
-
+from play_audio_files import play_list_of_songs
 
 
 
@@ -8,15 +11,23 @@ def play_usb():
     ls=os.listdir('/media/pi')
     
     dir='/media/pi/'+ ls[0]
-    
-    print(dir)
-    #os.chdir(dir)
+    track_paths=[]
     for i in os.listdir(dir):
-        if(str(i)=='.Trash-1000'):
-            continue
+        track_paths.append(str(dir) + '/' + i)
+    print(track_paths)
+    play_list_of_songs(track_paths)
+    
+   
+    
+   
+   
+    #os.chdir(dir)
+    # for i in os.listdir(dir):
+    #     if(str(i)=='.Trash-1000'):
+    #         continue
 
-        print('omxplayer {}'.format( '"' + "'"+ str(dir)+'/' + str(i) + "'" + '"'))
-        os.system('omxplayer {}'.format(str(dir)+'/' + str(i)))
+    #     print('omxplayer {}'.format( '"' + "'"+ str(dir)+'/' + str(i) + "'" + '"'))
+    #     os.system('omxplayer {}'.format(str(dir)+'/' + str(i)))
 if __name__ == "__main__":
     play_usb()
     pass
