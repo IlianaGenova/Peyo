@@ -2,35 +2,45 @@ import os
 from omxplayer.player import OMXPlayer
 from omxplayer.keys import PREVIOUS_AUDIO
 from time import sleep
-
-
-
+import RPi.GPIO as GPIO
+from buttons import read_pin
+from volume_control import volume_control
 def play_song(path):
     player=OMXPlayer(path,args=['-o' 'alsa'])
     return player
 
-def play_list_of_songs(song_list):
+def play_list_of_songs(song_list,button):
     i=0
+    playing=0
     while(i<len(song_list)):
-        player=play_song(song_list[i])
-        a=input()
-        if(a=='n'):
+        volume_control()
+        if(not(playing)):
+            player=play_song(song_list[i])
+            playing=1
+        if(not(read_pin(button))):
             player.quit()
+            break
+        # a=input()
+        # if(a=='n'):
+        #     player.quit()
+        #     playing=0
+        #     i=i+1
+        #     continue
+        # elif(a=='p'):
+        #     player.quit()
+        #     playing=0
+        #     i=i-1
+        #     continue
+        # else:
+        #     pass
+        sleep(0.1)
+        
+        try:
+            player.is_playing()
+                
+        except:
+            player.quit()
+            playing=0
             i=i+1
-            continue
-        elif(a=='p'):
-            player.quit()
-            i=i-1
-            continue
-        else:
-            pass
-
-        while(1):
-            try:
-                while(player.is_playing()):
-                    sleep(0.1)
-            except:
-                player.quit()
-                break
-        i=i+1
+        
         #player.quit()
