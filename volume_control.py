@@ -18,7 +18,7 @@ def volume_control():
     value=float(volume)/step
     if(read_pin(mute_pin)):
         value=0
-
+    
     system("amixer sset 'Headphone' " + str(value) + '%')
     return value
     

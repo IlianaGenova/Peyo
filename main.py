@@ -10,6 +10,7 @@ from radios import radio_on
 from usb import play_usb
 import multiprocessing
 from omxplayer.player import OMXPlayer
+from local import play_local
 system('sudo systemctl stop raspotify.service')
 SPOTIFY=18
 RADIO=23
@@ -36,8 +37,8 @@ GPIO.setup(YKB, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down
 
 
 while(1):
-
- 
+    system('sudo killall omxplayer.bin')
+    
     
     button=0
     for i in buttons:
@@ -62,3 +63,7 @@ while(1):
 
     if(button==24):#USB
         play_usb(button)
+
+    if(button==16):#Local
+        play_local(button)
+        

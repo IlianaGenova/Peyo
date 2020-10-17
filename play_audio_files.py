@@ -13,6 +13,7 @@ def play_list_of_songs(song_list,button):
     i=0
     playing=0
     while(i<len(song_list)):
+        print(song_list[i])
         volume_control()
         if(not(playing)):
             player=play_song(song_list[i])
