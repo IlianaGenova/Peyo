@@ -12,8 +12,9 @@ def read_pin(pin):
     return i
 
 if __name__ == "__main__":
+    pin=22
     GPIO.setmode(GPIO.BCM)
-    GPIO.setup(25, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(pin, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN)
     while(1):
-        print(read_pin(25))
+        print(read_pin(pin))
     pass

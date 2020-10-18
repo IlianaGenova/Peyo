@@ -18,9 +18,20 @@ CB=24
 MUTE=25
 #KB=12 Hardware Problem
 YKB=16
+GPIO.setmode(GPIO.BCM)
+#music control buttons
+NEXT=17
+PAUSE=27
+PREV=22
+GPIO.setup(NEXT, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
+GPIO.setup(PAUSE, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
+GPIO.setup(PREV, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
+
+
+
 
 buttons=(SPOTIFY,RADIO,CB,YKB)
-GPIO.setmode(GPIO.BCM)
+
 
 
 
@@ -35,10 +46,11 @@ GPIO.setup(YKB, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down
 # ser=serial.Serial('/dev/ttyACM0',57600,timeout=1)
 # ser.flush()
 
-
+omx_killed=0
 while(1):
-    system('sudo killall omxplayer.bin')
-    
+    if(not(omx_killed)):
+        system('sudo killall omxplayer.bin')
+    omx_killed=1
     
     button=0
     for i in buttons:
@@ -55,15 +67,16 @@ while(1):
     if(button==18):#Spotify
         spotify_on(button)
         
+        
     
 
     if(button==23): #radio
         radio_on(button)
-    
+        omx_killed=0
 
     if(button==24):#USB
         play_usb(button)
-
+        omx_killed=0
     if(button==16):#Local
         play_local(button)
-        
+        omx_killed=0

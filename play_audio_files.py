@@ -11,6 +11,10 @@ def play_song(path):
 
 def play_list_of_songs(song_list,button):
     i=0
+    paused=0
+    NEXT=17
+    PAUSE=27
+    PREV=22
     playing=0
     while(i<len(song_list)):
         print(song_list[i])
@@ -22,19 +26,24 @@ def play_list_of_songs(song_list,button):
             player.quit()
             break
         # a=input()
-        # if(a=='n'):
-        #     player.quit()
-        #     playing=0
-        #     i=i+1
-        #     continue
-        # elif(a=='p'):
-        #     player.quit()
-        #     playing=0
-        #     i=i-1
-        #     continue
-        # else:
-        #     pass
-        sleep(0.1)
+        if(read_pin(NEXT)):
+            player.quit()
+            sleep(0.5)
+            playing=0
+            i=i+1
+            continue
+        elif(read_pin(PREV)):
+            player.quit()
+            sleep(0.5)
+            playing=0
+            i=i-1
+            continue
+        elif(read_pin(PAUSE)):
+            player.play_pause()
+            sleep(0.5)
+        else:
+            pass
+        
         
         try:
             player.is_playing()
