@@ -10,8 +10,13 @@ def spotify_on(button):
         volume_control()
     system('sudo systemctl stop raspotify.service')
     
+def spotify_on_software():
+    system('sudo systemctl start raspotify.service')
+    print('Spotify started')
 
-
+def spotify_off_software():
+    system('sudo systemctl stop raspotify.service')
+    print('Spotify stopped')
 
 
 if __name__ == "__main__":

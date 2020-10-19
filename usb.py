@@ -3,7 +3,7 @@ from omxplayer.player import OMXPlayer
 from omxplayer.keys import PREVIOUS_AUDIO
 from time import sleep
 import RPi.GPIO as GPIO
-from play_audio_files import play_list_of_songs
+from play_audio_files import play_list_of_songs, play_song
 
 
 
@@ -16,7 +16,19 @@ def play_usb(button):
         track_paths.append(str(dir) + '/' + i)
     print(track_paths)
     play_list_of_songs(track_paths,button)
+
+def play_usb_software(path):
+    player=play_song(path)
+    return player
+
+
+# def play_usb_software():
+#     ls=os.listdir('/media/pi')
     
+#     dir='/media/pi/'+ ls[0]
+#     track_paths=[]
+#     for i in os.listdir(dir):
+#         track_paths.append(str(dir) + '/' + i)
    
     
    
