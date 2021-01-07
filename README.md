@@ -25,6 +25,7 @@ We also added remote-control ability for people on the same network as the new h
 :sound: Play from USB  
 :sound: Control Volume  
 :sound: Mute  
+:sound: Google Assistant
 
 ## Team
 :star: [Iliana Genova](https://github.com/IlianaGenova)  
