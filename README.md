@@ -36,3 +36,4 @@ We also added remote-control ability for people on the same network as the new h
 
 ![Web](web.png)
 ![Peyo](PeyoCollage.jpg)
+![Peyo](PeyoElechtricSchematic.png)
