@@ -7,7 +7,7 @@ from serial1 import read_serial
 
 def volume_control():
     step=10
-    mute_pin=25
+    mute_pin=15
     ser=serial.Serial('/dev/ttyACM0',57600,timeout=1)
     ser.flush()
     ser.reset_input_buffer()
