@@ -64,19 +64,19 @@ while(1):
 
 
 
-    if(button==18):#Spotify
+    if(button==SPOTIFY):#Spotify
         spotify_on(button)
         
         
     
 
-    if(button==23): #radio
+    if(button==RADIO): #radio
         radio_on(button)
         omx_killed=0
 
-    if(button==24):#USB
+    if(button==CB):#USB
         play_usb(button)
         omx_killed=0
-    if(button==16):#Local
+    if(button==YKB):#Local
         play_local(button)
         omx_killed=0
