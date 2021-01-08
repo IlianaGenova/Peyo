@@ -13,15 +13,15 @@ from omxplayer.player import OMXPlayer
 from local import play_local
 system('sudo systemctl stop raspotify.service')
 SPOTIFY=18
-RADIO=23
-CB=24
-MUTE=25
+RADIO=14#was 23, made 14
+CB=26#was 24, made 26
+MUTE=15#was 25, made 15
 #KB=12 Hardware Problem
 YKB=16
 GPIO.setmode(GPIO.BCM)
 #music control buttons
-NEXT=17
-PAUSE=27
+NEXT=19#was 17, made 19
+PAUSE=11#made 11, was 27
 PREV=22
 GPIO.setup(NEXT, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
 GPIO.setup(PAUSE, GPIO.IN,  pull_up_down=GPIO.PUD_DOWN) # input with pull-down  
