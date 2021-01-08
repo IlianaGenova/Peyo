@@ -6,7 +6,7 @@ import RPi.GPIO as GPIO
 from buttons import read_pin
 from volume_control import volume_control
 def play_song(path):
-    player=OMXPlayer(path)
+    player=OMXPlayer(path,args=['-o' 'alsa'])
     return player
 
 def play_list_of_songs(song_list,button):
