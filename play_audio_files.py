@@ -12,8 +12,8 @@ def play_song(path):
 def play_list_of_songs(song_list,button):
     i=0
     
-    NEXT=17
-    PAUSE=27
+    NEXT=19
+    PAUSE=11
     PREV=22
     playing=0
     while(i<len(song_list)):
